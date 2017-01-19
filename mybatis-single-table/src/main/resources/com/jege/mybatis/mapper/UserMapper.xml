@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jege.mybatis.mapper.UserMapper">
+
+	<!-- 删表 -->
+	<update id="dropTable">
+		DROP TABLE IF EXISTS `t_user`;
+	</update>
+
+	<!-- 建表 -->
+	<update id="createTable">
+		CREATE TABLE IF NOT EXISTS `t_user` (
+		`id` bigint(11) NOT NULL AUTO_INCREMENT,
+		`name` varchar(255) DEFAULT NULL,
+		`age` int(11) DEFAULT NULL,
+		PRIMARY KEY (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	</update>
+
+	<!-- 保存 -->
+	<insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+		insert into t_user(name,age)
+		values(#{name},#{age})
+	</insert>
+
+	<!-- 查询 -->
+	<select id="findByKey" resultType="User" parameterType="long">
+		select id,name,age from t_user where id=#{id}
+	</select>
+
+	<!-- 获取所有 -->
+	<select id="findAll" resultType="User">
+		select id,name,age from t_user
+	</select>
+
+	<!-- 修改 -->
+	<update id="update" parameterType="User">
+		update t_user set name=#{name},age=#{age} where id=#{id}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete" parameterType="long">
+		delete from t_user where id=#{id}
+	</delete>
+
+
+
+</mapper>
